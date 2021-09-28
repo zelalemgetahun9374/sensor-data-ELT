@@ -1,2 +1,2 @@
 select *
-from foo.I80_stations
+from dbtdb.I80Stations

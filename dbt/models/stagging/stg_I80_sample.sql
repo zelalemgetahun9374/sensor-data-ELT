@@ -8,7 +8,7 @@
 
 with stations as (
 
-    select date, time, station_id,
+    select date_time, station_id,
         
         {% for col in cols %}
             case
@@ -16,7 +16,7 @@ with stations as (
             end as {{col}}
             {% if not loop.last %},{% endif %}
         {% endfor %}
-    from foo.I80_sample
+    from dbtdb.I80Davis
 
 )
 

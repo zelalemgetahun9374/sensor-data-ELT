@@ -1,2 +1,2 @@
 select *
-from foo.station_summary
+from dbtdb.station_summary
