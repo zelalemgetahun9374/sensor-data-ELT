@@ -23,6 +23,14 @@ services:
     volumes:
       - ./scripts_postgres:/docker-entrypoint-initdb.d
       # - ./sample_data:/sample_data
+  postgres-dbt:
+    image: postgres
+    env_file: dbt.env
+    expose:
+      - 5432
+    restart: always
+    volumes:
+      - ./data:/data
   postgres-redash:
     image: postgres
     env_file: redash.env
@@ -68,6 +76,13 @@ services:
       DBT_DBT_RAW_DATA_SCHEMA: dbt_raw_data
       DBT_MYSQL_HOST: mysqldb
       MYSQL_PORT: 3306
+
+      DBT_POSTGRES_PASSWORD: pssd
+      DBT_POSTGRES_USER: dbtuser
+      DBT_POSTGRES_DB: dbtdb
+      DBT_DBT_SCHEMA: dbt
+      DBT_DBT_RAW_DATA_SCHEMA: dbt_raw_data
+      DBT_POSTGRES_HOST: postgres-dbt
     depends_on:
       - postgres-airflow
       - mysqldb
@@ -87,6 +102,13 @@ services:
     depends_on:
       - postgres-airflow
       - mysqldb
+
+  superset:
+    image: tylerfowler/superset
+    restart: always
+    ports:
+        - "8088:8088"
+
   server:
     <<: *redash-service
     command: server
