@@ -5,6 +5,8 @@ RUN pip install apache-airflow-providers-postgres
 RUN pip install apache-airflow-providers-mysql
 RUN pip install dbt-mysql
 RUN pip install mysql-connector-python
+RUN pip install pandas
+RUN pip install pymysql
 
 RUN mkdir /project
 COPY scripts_airflow/ /project/scripts/
